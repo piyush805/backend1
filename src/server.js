@@ -16,9 +16,10 @@ app.use(allowOriginMiddleware);
 // Sample route
 app.get("/", async (req, res) => {
   try {
+    logger.info("Request received");
     const [rows] = await pool.query(`SELECT * FROM user`);
 
-    return res.status(200).json(new ApiResponse(200, rows[0], "Hello World!"));
+    return res.json(new ApiResponse(200, rows[0], "Hello World!"));
   } catch (error) {
     return new ApiError(500, "Database query failed", error.message);
   }
